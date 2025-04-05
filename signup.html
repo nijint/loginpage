@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Galaxy Signup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      color: white;
+    }
+
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/stars.png') repeat top center;
+      animation: moveStars 200s linear infinite;
+      position: absolute;
+      z-index: 0;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 5000px; }
+    }
+
+    .signup-box {
+      z-index: 2;
+      position: relative;
+      width: 360px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .signup-box h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .signup-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+    }
+
+    .signup-box button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .signup-box a {
+      display: block;
+      margin-top: 12px;
+      color: #00c6ff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .signup-box p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #f88;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <div class="signup-box">
+    <h2>🌠 Create Account</h2>
+    <input type="email" id="email" placeholder="Gmail address (e.g., star@gmail.com)" required />
+    <input type="text" id="mobile" placeholder="Mobile Number" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <input type="password" id="confirm" placeholder="Confirm Password" required />
+    <button onclick="signup()">Sign Up</button>
+    <p id="message"></p>
+    <a href="index.html">Already have an account? Login</a>
+  </div>
+
+  <script>
+    function signup() {
+      const email = document.getElementById("email").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirm = document.getElementById("confirm").value.trim();
+      const message = document.getElementById("message");
+
+      // Validation
+      if (!email.endsWith("@gmail.com")) {
+        message.textContent = "Please enter a valid Gmail address.";
+        return;
+      }
+      if (!/^\d{10}$/.test(mobile)) {
+        message.textContent = "Please enter a valid 10-digit mobile number.";
+        return;
+      }
+      if (password.length < 6) {
+        message.textContent = "Password should be at least 6 characters long.";
+        return;
+      }
+      if (password !== confirm) {
+        message.textContent = "Passwords do not match.";
+        return;
+      }
+
+      // Save credentials (for demo purposes only - not secure for real apps)
+      const userData = {
+        email,
+        mobile,
+        password,
+      };
+
+      localStorage.setItem("userData", JSON.stringify(userData));
+      message.style.color = "#0f0";
+      message.textContent = "Account created successfully! Redirecting to login...";
+
+      setTimeout(() => {
+        window.location.href = "index.html"; // redirect to login page
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
+
