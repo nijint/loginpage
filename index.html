@@ -118,6 +118,9 @@
       if (email === userData.email && password === userData.password) {
         message.style.color = "#0f0";
         message.textContent = "✅ Login successful! Welcome back.";
+        setTimeout(() => {
+          window.location.href = "https://github.com/nijint";
+        }, 1500);
       } else {
         message.style.color = "#f88";
         message.textContent = "Invalid email or password.";
@@ -126,4 +129,3 @@
   </script>
 </body>
 </html>
-
